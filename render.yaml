@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: wa-gateway-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: PRODUCTION
+      - key: PORT
+        value: 5001
+      - key: KEY
+        generateValue: true
+      - key: WEBHOOK_BASE_URL
+        sync: false
