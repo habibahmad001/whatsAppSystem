@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git reset *)",
+      "Bash(node check-local-setup.js)",
+      "Bash(npm run *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :5001)",
+      "Bash(taskkill /PID 2984 /F)",
+      "Bash(cmd.exe /c \"taskkill /PID 2984 /F\")",
+      "Bash(npx kill-port *)",
+      "Bash(ls -la pnpm-lock.yaml)",
+      "Bash(rm pnpm-lock.yaml)"
+    ]
+  }
+}
