@@ -10,7 +10,7 @@ const getEnvMode = () => {
 
 export const env = z
   .object({
-    NODE_ENV: z.string().transform(() => getEnvMode()),
+    NODE_ENV: z.string().default("development").transform(() => getEnvMode()),
     KEY: z.string().default(""),
     PORT: z
       .string()
