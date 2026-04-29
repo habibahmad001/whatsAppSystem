@@ -2,15 +2,17 @@ import * as mysql from "mysql2/promise";
 import * as bcrypt from "bcryptjs";
 import { env } from "../env";
 
-// Create connection pool
+// Create connection pool with environment variable support
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "mywhatsapp",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "mywhatsapp",
+  port: parseInt(process.env.DB_PORT || "3306"),
 });
 
 console.log("[DB] Pool created successfully");
+console.log("[DB] Connected to:", process.env.DB_HOST || "localhost");
 
 // Save session to DB
 export async function saveSessionToDB(sessionName: string, sessionData: any, userId: number | null = null) {
