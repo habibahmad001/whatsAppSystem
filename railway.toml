@@ -7,3 +7,7 @@ healthcheckPath = "/"
 
 [deploy.env]
 NODE_ENV = "production"
+NODE_VERSION = "20"
+
+[build.env]
+NODE_VERSION = "20"
