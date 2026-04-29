@@ -1,15 +1,16 @@
 import "dotenv/config";
 import { z } from "zod";
 
-// Normalize NODE_ENV before validation
-const normalizedEnv = {
-  ...process.env,
-  NODE_ENV: process.env.NODE_ENV?.toUpperCase() || "DEVELOPMENT",
+// Simple NODE_ENV handling - accept any value and normalize it
+const getEnvMode = () => {
+  const rawMode = process.env.NODE_ENV || "development";
+  const upperMode = rawMode.toUpperCase();
+  return (upperMode === "PRODUCTION") ? "PRODUCTION" : "DEVELOPMENT";
 };
 
 export const env = z
   .object({
-    NODE_ENV: z.enum(["DEVELOPMENT", "PRODUCTION"]).default("DEVELOPMENT"),
+    NODE_ENV: z.string().transform(() => getEnvMode()),
     KEY: z.string().default(""),
     PORT: z
       .string()
@@ -17,6 +18,6 @@ export const env = z
       .transform((e) => Number(e)),
     WEBHOOK_BASE_URL: z.string().optional(),
   })
-  .parse(normalizedEnv);
+  .parse(process.env);
 
 console.log(`[Config] Environment: ${env.NODE_ENV}`);
