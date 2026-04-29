@@ -1,0 +1,9 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "tsx src/index.ts"
+healthcheckPath = "/"
+
+[deploy.env]
+NODE_ENV = "production"
