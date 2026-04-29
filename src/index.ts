@@ -83,6 +83,12 @@ app.route("/history", createHistoryController());
 import { createAdminController } from "./controllers/admin";
 app.route("/admin", createAdminController());
 
+/**
+ * migration routes
+ */
+import { createMigrateController } from "./controllers/migrate";
+app.route("/migrate", createMigrateController());
+
 const port = env.PORT;
 
 serve(
@@ -127,10 +133,11 @@ if (env.WEBHOOK_BASE_URL) {
 // End Implement Webhook
 
 // Restore sessions from DB
-import { getAllSessionsFromDB, initUsersTable, initContactsTable, initMessagesTable, saveMessageToDB } from "./controllers/dbService";
+import { getAllSessionsFromDB, initSessionsTable, initUsersTable, initContactsTable, initMessagesTable, saveMessageToDB } from "./controllers/dbService";
 
 (async () => {
   try {
+    await initSessionsTable();
     await initUsersTable();
     await initContactsTable();
     await initMessagesTable();

@@ -87,6 +87,27 @@ export async function getAllSessionsFromDB() {
   }
 }
 
+// Initialize Sessions Table
+export async function initSessionsTable() {
+  try {
+    const sql = `
+      CREATE TABLE IF NOT EXISTS sessions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        session_name VARCHAR(100) NOT NULL UNIQUE,
+        session_data LONGTEXT NOT NULL,
+        created_by INT,
+        updated_by INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `;
+    await pool.execute(sql);
+    console.log("[DB] Sessions table initialized");
+  } catch (error) {
+    console.error("[DB] Error initializing sessions table:", error);
+  }
+}
+
 // Initialize Users Table
 export async function initUsersTable() {
   try {
